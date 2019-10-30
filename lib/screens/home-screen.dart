@@ -69,7 +69,7 @@ class _HomeState extends State with SingleTickerProviderStateMixin {
           _glowingNotification(),
           PopupMenuButton<Choice>(
             onSelected: (choice) {
-              Navigator.pushNamed(context, choice.route);
+              if (choice.title != "GO OFFLINE") Navigator.pushNamed(context, choice.route);
             },
             icon: Icon(
               Icons.account_circle,

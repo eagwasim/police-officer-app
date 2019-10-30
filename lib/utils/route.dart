@@ -8,4 +8,7 @@ class Routes {
   static const SETTINGS_SCREEN = '/settings-screen';
   static const FEEDBACK_SCREEN = '/feedback-screen';
   static const PRIVACY_AND_TERMS_SCREEN = '/privacy-and-terms-screen';
+  static const WANTED_LIST_SCREEN = '/wanted-list-screen';
+  static const MISSING_PERSONS_SCREEN = '/missing-persons-screen';
+  static const PUBLIC_NOTICE_SCREEN = '/public-notice-screen';
 }
