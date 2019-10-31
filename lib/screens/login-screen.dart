@@ -9,6 +9,7 @@ import 'package:police_officer_app/utils/shared-preference-util.dart';
 import 'package:police_officer_app/utils/validation-utils.dart';
 import 'package:police_officer_app/utils/widget-utils.dart';
 
+
 class LoginScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -43,7 +44,10 @@ class _LoginState extends State<LoginScreen> implements BaseResponseListener {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset("assets/images/officer_app_logo.png"),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("assets/images/officer_app_logo.png"),
+        ),
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         elevation: 0,

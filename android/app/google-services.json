@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "527155527249",
+    "firebase_url": "https://police-ng.firebaseio.com",
+    "project_id": "police-ng",
+    "storage_bucket": "police-ng.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527155527249:android:6aa189c8f8a57dfcef0270",
+        "android_client_info": {
+          "package_name": "com.noubug.app.police_officer_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527155527249-hejcc5osng53ttlmfa26eahanve860vm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5-5lXjvZA8DkPOBIRLGzCSvgHOkodYmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527155527249-hejcc5osng53ttlmfa26eahanve860vm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

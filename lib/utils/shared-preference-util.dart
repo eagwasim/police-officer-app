@@ -7,6 +7,7 @@ class SharedPreferenceUtil {
   static const _CURRENT_USER_KEY = "CURRENT_USER_KEY";
   static const _CURRENT_PHONE_NUMBER_FOR_VERIFICATION = "CURRENT_PHONE_NUMBER_FOR_VERIFICATION";
   static const _USER_AUTHENTICATION_TOKEN = "USER_AUTHENTICATION_TOKEN";
+  static const _PENDING_NOTIFICATION = "_PENDING_NOTIFICATION";
   static const TERMS_AND_CONDITIONS_ACCEPTED_KEY = "TERMS_AND_CONDITIONS_ACCEPTED_KEY";
   static const LATEST_SOS_ID_KEY = "LATEST_SOS_ID_KEY";
 
@@ -70,11 +71,22 @@ class SharedPreferenceUtil {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_USER_AUTHENTICATION_TOKEN);
   }
+
   static Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(_CURRENT_USER_KEY);
     prefs.remove(_USER_AUTHENTICATION_TOKEN);
     prefs.remove(LATEST_SOS_ID_KEY);
     prefs.remove(TERMS_AND_CONDITIONS_ACCEPTED_KEY);
+  }
+
+  static Future<void> setNotificationPending(bool status) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(_PENDING_NOTIFICATION, status);
+  }
+
+  static Future<bool> isNotificationPending() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_PENDING_NOTIFICATION) ?? false;
   }
 }

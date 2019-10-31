@@ -9,4 +9,5 @@ class UserResource {
   static void updateUserDetails(User user, BaseResponseListener listener) {
     BaseResource.makePostRequest("$USER_CONTEXT_PATH", jsonEncode(user.toJson()), listener);
   }
+
 }

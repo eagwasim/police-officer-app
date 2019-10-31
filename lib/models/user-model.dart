@@ -21,7 +21,7 @@ class User {
         nin = json['nin'] ?? null,
         profilePhoto = json['profile_photo'] ?? null,
         emailAddress = json['email_address'] ?? null,
-        roles = json['role'] ?? null,
+        roles = List<String>.from(json['roles'] ?? []),
         id = json['id'] ?? null,
         badgeNumber = json['badge_number'] ?? null,
         houseAddress = json['house_address'] ?? null;
@@ -41,5 +41,10 @@ class User {
       'id': id,
       'badge_number': badgeNumber
     };
+  }
+
+  @override
+  String toString() {
+    return 'User{firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, bvn: $bvn, nin: $nin, profilePhoto: $profilePhoto, houseAddress: $houseAddress, badgeNumber: $badgeNumber, roles: $roles, id: $id}';
   }
 }

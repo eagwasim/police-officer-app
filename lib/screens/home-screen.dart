@@ -1,6 +1,14 @@
+import 'dart:io';
+
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:police_officer_app/main.dart';
+import 'package:police_officer_app/models/user-model.dart';
 import 'package:police_officer_app/utils/route.dart';
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart' as bg;
+import 'package:police_officer_app/utils/shared-preference-util.dart';
+import 'package:vibration/vibration.dart';
 
 class Choice {
   const Choice({this.title, this.icon, this.route});
@@ -28,10 +36,20 @@ class Report {}
 
 class _HomeState extends State with SingleTickerProviderStateMixin {
   final reports = [];
+  var _hasPendingNotification = false;
 
   @override
   void initState() {
     super.initState();
+    bg.BackgroundGeolocation.start();
+    firebaseCloudMessagingListeners();
+
+    Future<bool> hasPendingNotification = SharedPreferenceUtil.isNotificationPending();
+    hasPendingNotification.then((c) {
+      setState(() {
+        _hasPendingNotification = c;
+      });
+    });
   }
 
   @override
@@ -66,7 +84,17 @@ class _HomeState extends State with SingleTickerProviderStateMixin {
             ),
             onPressed: () {},
           ),
-          _glowingNotification(),
+          _hasPendingNotification
+              ? _glowingNotification(context)
+              : IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    color: Colors.grey[700],
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.NOTIFICATION_SCREEN);
+                  },
+                ),
           PopupMenuButton<Choice>(
             onSelected: (choice) {
               if (choice.title != "GO OFFLINE") Navigator.pushNamed(context, choice.route);
@@ -304,6 +332,71 @@ class _HomeState extends State with SingleTickerProviderStateMixin {
       ),
     );
   }
+
+  void firebaseCloudMessagingListeners() {
+    Future.delayed(Duration(seconds: 3), () {
+      firebaseMessaging.requestNotificationPermissions();
+    });
+    if (Platform.isIOS) {
+      iOSPermission();
+    } else {
+      firebaseMessaging.requestNotificationPermissions();
+    }
+
+    firebaseMessaging.getToken().then((token) {
+      print(token);
+    });
+
+    firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+
+        SharedPreferenceUtil.setNotificationPending(true);
+
+        setState(() {
+          _hasPendingNotification = true;
+        });
+
+        Future<bool> hasV = Vibration.hasVibrator();
+        hasV.then((value) {
+          if (value) {
+            Vibration.vibrate(pattern: [500, 1000, 500, 2000]);
+          }
+        });
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+
+        SharedPreferenceUtil.setNotificationPending(true);
+
+        setState(() {
+          _hasPendingNotification = true;
+        });
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+
+        SharedPreferenceUtil.setNotificationPending(true);
+
+        setState(() {
+          _hasPendingNotification = true;
+        });
+      },
+    );
+
+    Future<User> user = SharedPreferenceUtil.currentUser();
+
+    user.then((u) async {
+      await firebaseMessaging.subscribeToTopic("${u.id}");
+    });
+  }
+
+  void iOSPermission() {
+    firebaseMessaging.requestNotificationPermissions(IosNotificationSettings(sound: true, badge: true, alert: true));
+    firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+  }
 }
 
 class OrderedListItem extends StatelessWidget {
@@ -339,7 +432,7 @@ class OrderedListItem extends StatelessWidget {
   }
 }
 
-Widget _glowingNotification() {
+Widget _glowingNotification(BuildContext context) {
   return AvatarGlow(
     startDelay: Duration(milliseconds: 2000),
     glowColor: Colors.red,
@@ -354,7 +447,9 @@ Widget _glowingNotification() {
         Icons.notifications_none,
         color: Colors.red.withOpacity(0.8),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, Routes.NOTIFICATION_SCREEN);
+      },
     ),
   );
 }

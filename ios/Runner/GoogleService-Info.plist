@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>527155527249-8ck0s4looiduh1lvmq8qfv3nlsmpjatp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.527155527249-8ck0s4looiduh1lvmq8qfv3nlsmpjatp</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCn1DazUsCsivukTQgQ48cZIN-sA95Y-To</string>
+	<key>GCM_SENDER_ID</key>
+	<string>527155527249</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.noubug.app.policeOfficerApp</string>
+	<key>PROJECT_ID</key>
+	<string>police-ng</string>
+	<key>STORAGE_BUCKET</key>
+	<string>police-ng.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:527155527249:ios:2444a0343d7b0cf0ef0270</string>
+	<key>DATABASE_URL</key>
+	<string>https://police-ng.firebaseio.com</string>
+</dict>
+</plist>

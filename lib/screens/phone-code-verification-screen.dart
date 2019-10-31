@@ -6,6 +6,7 @@ import 'package:flutter_verification_code_input/flutter_verification_code_input.
 import 'package:police_officer_app/http/access-resource.dart';
 import 'package:police_officer_app/http/base-resource.dart';
 import 'package:police_officer_app/http/models/access-resource-models.dart';
+import 'package:police_officer_app/main.dart';
 import 'package:police_officer_app/models/user-model.dart';
 import 'package:police_officer_app/utils/navigation-utils.dart';
 import 'package:police_officer_app/utils/shared-preference-util.dart';
@@ -126,6 +127,12 @@ class _PhoneCodeVerificationState extends State implements BaseResponseListener 
         Map<String, dynamic> decodedResponse = jsonDecode(response.data);
 
         User user = User.fromJson(decodedResponse["user"]);
+
+        if (!user.roles.contains("OFFICER")) {
+          WidgetUtils.errorToast("Only Officers are Allowed to use this app");
+          return;
+        }
+
         String token = decodedResponse["token"];
 
         await SharedPreferenceUtil.saveToken(token);

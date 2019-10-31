@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:http/http.dart' as http;
 import 'package:police_officer_app/utils/shared-preference-util.dart';
 
@@ -7,6 +9,13 @@ class BaseResponse {
   String data;
 
   BaseResponse({this.statusCode, this.statusMessage, this.data});
+
+  @override
+  String toString() {
+    return 'BaseResponse{statusCode: $statusCode, statusMessage: $statusMessage, data: $data}';
+  }
+
+
 }
 
 abstract class BaseResponseListener {
@@ -43,6 +52,7 @@ abstract class BaseResource {
           ),
         );
       }, onError: (error) {
+        print(error);
         listener.onResponse(BaseResponse(
           statusCode: 500,
           statusMessage: "Could not process your request, check your internet connection",

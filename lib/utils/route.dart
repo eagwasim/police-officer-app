@@ -11,4 +11,5 @@ class Routes {
   static const WANTED_LIST_SCREEN = '/wanted-list-screen';
   static const MISSING_PERSONS_SCREEN = '/missing-persons-screen';
   static const PUBLIC_NOTICE_SCREEN = '/public-notice-screen';
+  static const NOTIFICATION_SCREEN = '/notification-screen';
 }
